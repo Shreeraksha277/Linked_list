@@ -97,6 +97,10 @@ public int getSize(){
     System.out.println("Null");
  }
  public void reverse(){
+  if(head==null || head.next==null)
+  {
+   return;
+  }
     Node prevNode = head;
     Node CurNode = head.next;
     while(CurNode!=null)
