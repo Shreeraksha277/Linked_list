@@ -1,4 +1,4 @@
- class LL{    
+  class LL{    
     Node head;
     private int size;
     LL(){
@@ -97,10 +97,6 @@ public int getSize(){
     System.out.println("Null");
  }
  public void reverse(){
-  if(head==null || head.next==null)
-  {
-   return;
-  }
     Node prevNode = head;
     Node CurNode = head.next;
     while(CurNode!=null)
@@ -116,6 +112,95 @@ CurNode = nextNode;
     head=prevNode;
     
  } 
+ public Node removeNthFromEnd(Node head,int n){
+
+  
+  if(head.next==null){
+    return null;
+  }
+int size=0;
+Node curr=head;
+while(curr!=null){
+  curr=curr.next;
+  size++;
+}
+if(n==size){
+  return head.next;
+}
+int index = size-n;
+Node prev=head;
+int i=0;
+while(i<index-1)
+{
+  prev = prev.next;
+  i++;
+}
+prev.next=prev.next.next;
+return head;
+  }
+  public Node getMiddle(Node head) {
+   Node fast = head;
+   Node slow = head;
+   while (fast.next != null && fast.next.next != null) {
+       fast = fast.next.next;
+       slow = slow.next;
+   }
+   return slow;
+}
+
+
+public Node reverse(Node head) {
+   Node prev = null;
+   Node curr = head;
+  
+   while (curr != null) {
+       Node next = curr.next;
+       curr.next = prev;
+       prev = curr;
+       curr = next;
+   }
+   return prev;
+}
+
+
+
+
+public boolean isPalindrome(Node head) {
+   if(head == null || head.next == null) {
+       return true;
+   }
+  
+   Node firstHalfEnd = getMiddle(head);
+   Node secondHalfStart = reverse(firstHalfEnd.next);
+   Node firstHalfStart = head;
+  
+   while(secondHalfStart != null) {
+       if(!secondHalfStart.data.equals(firstHalfStart.data)) {
+           return false;
+       }
+       secondHalfStart = secondHalfStart.next;
+       firstHalfStart = firstHalfStart.next;
+   }
+  
+   return true;
+}
+public boolean hasCycle(Node head) {
+   Node slow = head;
+   Node fast = head;
+  
+   while(fast != null && fast.next != null) {
+       slow = slow.next;
+       fast = fast.next.next;
+      
+       if(fast == slow) {
+           return true;
+       }
+   }
+  
+   return false;
+}
+
+ 
  public static void main(String args[])
  {
  LL list = new LL();
@@ -136,6 +221,11 @@ list.addFirst("This");
 list.Display();
 list.reverse();
 list.Display();
+ list.removeNthFromEnd(list.head,3);
+list.Display();
+System.out.println(" " + list.isPalindrome(list.head));
+System.out.println(" " + list.hasCycle(list.head));
 
  }
 } 
+
